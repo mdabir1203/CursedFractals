@@ -22,19 +22,19 @@ Clone the repository:
 bash
 
 `` git clone https://github.com/yourusername/julia-set-ncurses.git
-cd julia-set-ncurses
+   
 ``
 Compile the code:
 
 bash
 ```
-g++ -o julia_set main.cpp -lncurses
+run make
 ``` 
 Run the executable:
 
 bash
 ```
-./julia_set
+./julia
 ```
 Usage
 
