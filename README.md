@@ -35,6 +35,13 @@ bash
 ```
 ./julia
 ```
+
+## Demo 
+[Screencast from 22.04.2024 20:42:04.webm](https://github.com/mdabir1203/Julia-terminal/assets/66947064/4c404210-01f3-4db6-bacb-23da68c3c7d1)
+
+
+
+
 ## Usage
 
 Upon running the program, you will see the Julia set visualization in the terminal window. You can interact with the visualization using the keyboard controls.
