@@ -1,6 +1,7 @@
-## Julia Set Visualization with ncurses
+## Fractal Visualizer with ncurses (WIP)
 
-This project demonstrates a terminal-based visualization of the Julia set using the ncurses library in C++.
+This project demonstrates a terminal-based visualization of various fractals using the ncurses library in C++.
+
 Table of Contents
 
     Introduction
@@ -54,6 +55,8 @@ Controls
     Q: Zoom in
     E: Zoom out
     Spacebar: Exit the program
+    J: Change to Buddhabrot fractal (??)
+    B: Change to fern fractal
 
 Contributing
 
