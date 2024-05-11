@@ -1,11 +1,73 @@
 #include <ncurses.h>
 #include <cmath>
+#include <stdlib.h>
+#include <math.h>
 
+#define NUM_POINTS 10000
+#define SCALE_FACTOR 0.1
 #define ITER 42
 
-int fernFractal(double x, double y)
+
+
+void stemTransformation(double *x, double *y)
 {
-    
+    *y += 0.05;
+}
+
+void leftLeafTransformation(double *x, double *y)
+{
+    double new_x = 0.85 * (*x) - 1.6;
+    *y += 0.04;
+    *x = new_x;
+}
+
+void rightLeafTransformation(double *x, double *y)
+{
+    double new_x = 0.2 * (*x) + 0.23;
+    *y -= 0.26;
+    *x = new_x;
+}
+
+void centerLeafTransformation(double *x, double *y)
+{
+    double new_x = -0.15 * (*x) + 0.26;
+    *y += 0.28;
+    *x = new_x;
+}
+
+int fernFractal(double x, double y) {
+    // Initialize variables
+    double z_real = x, z_imag = y;
+    int iteration = 0;
+
+    // Loop until the point escapes the circle of radius 2 or we reach the maximum number of iterations
+    while (z_real * z_real + z_imag * z_imag <= 4 && iteration < NUM_POINTS) {
+        // Generate a random number
+        int randomNum = rand() % 100;
+
+        // Apply a transformation based on the random number
+        if (randomNum < 1) {
+            stemTransformation(&z_real, &z_imag);
+        } else if (randomNum < 86) {
+            leftLeafTransformation(&z_real, &z_imag);
+        } else if (randomNum < 93) {
+            rightLeafTransformation(&z_real, &z_imag);
+        } else {
+            centerLeafTransformation(&z_real, &z_imag);
+        }
+
+        // Scale and translate the point
+        z_real += SCALE_FACTOR;
+        z_imag += SCALE_FACTOR;
+        z_real += 2.5;
+        z_imag += 1.0;
+
+        // Increment the iteration count
+        iteration++;
+    }
+
+    // Return the number of iterations, or 0 if the point did not escape
+    return iteration == NUM_POINTS ? 0 : iteration;
 }
 // Function to calculate whether a point belongs to the Julia set
 int julia(double x, double y) {
@@ -51,6 +113,7 @@ float x_pos = 0, y_pos = 0;
 float zoom = 1;
 
 bool use_julia = true;
+bool use_fern  = false;
 
 // Function to draw the Julia set on the terminal window
 void draw() {
@@ -61,15 +124,16 @@ void draw() {
         for (int j = 0; j < y; j++) {
             double x_coord = (((double)i - (double)x / 2.) * (4. / (double)x)) * zoom + x_pos;
             double y_coord = y_pos + zoom * ((double)j - (double)y / 2.) * (4. / (double)y * ((2.5 * 9.) / 16.));
-            
-            int result;
-            if (use_julia)
-                result = julia(x_coord, y_coord);
-            else {
-                int trajectory[ITER * 2];
-                result = buddhabrot(x_coord, y_coord, trajectory, ITER);
+        int result;
+        if (use_julia)
+            result = julia(x_coord, y_coord);
+        else if (use_fern)
+            result = fernFractal(x_coord, y_coord);
+        else {
+            int trajectory[ITER * 2];
+            result = buddhabrot(x_coord, y_coord, trajectory, ITER);
             }
-            // Color mapping
+            // Color mappingp
             if (result == 0)
                 attron(COLOR_PAIR(1));
             else if (result % 7 == 1)
@@ -130,8 +194,14 @@ int main(void) {
         switch (ch) {
             case 'j':
                 use_julia = true;
+                use_fern = false;
                 break;
             case 'b':
+                use_julia = false;
+                use_fern =  false;
+                break;
+            case 'f':
+                use_fern = true;
                 use_julia = false;
                 break;
             case 'w':
