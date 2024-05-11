@@ -3,6 +3,10 @@
 
 #define ITER 42
 
+int fernFractal(double x, double y)
+{
+    
+}
 // Function to calculate whether a point belongs to the Julia set
 int julia(double x, double y) {
     double z_real = x, z_imag = y;
@@ -16,14 +20,37 @@ int julia(double x, double y) {
         iteration++;
     }
     
-    if (iteration == ITER) 
-        return 0;
-    else
-        return iteration;
+    return iteration == ITER ? 0 : iteration;
 }
+
+// Function to calculate whether a point belongs to the Buddhabrot set
+int buddhabrot(double x, double y, int *trajectory, int max_trajectory_length)
+{
+    double z_real = 0, z_imag = 0;
+    int iteration = 0;
+
+    while (z_real * z_real + z_imag * z_imag <= 4 && iteration < ITER)
+    {
+        if (iteration < max_trajectory_length)
+        {
+            trajectory[iteration * 2] = z_real;
+            trajectory[iteration * 2 + 1] = z_imag;
+        }
+
+        double temp = z_real * z_real - z_imag * z_imag + x;
+        z_imag = 2 * z_real * z_imag + y;
+        z_real = temp;
+        iteration++;
+    }
+
+    return iteration == ITER ? 0 : iteration;
+}
+
 
 float x_pos = 0, y_pos = 0;
 float zoom = 1;
+
+bool use_julia = true;
 
 // Function to draw the Julia set on the terminal window
 void draw() {
@@ -35,8 +62,13 @@ void draw() {
             double x_coord = (((double)i - (double)x / 2.) * (4. / (double)x)) * zoom + x_pos;
             double y_coord = y_pos + zoom * ((double)j - (double)y / 2.) * (4. / (double)y * ((2.5 * 9.) / 16.));
             
-            int result = julia(x_coord, y_coord);
-
+            int result;
+            if (use_julia)
+                result = julia(x_coord, y_coord);
+            else {
+                int trajectory[ITER * 2];
+                result = buddhabrot(x_coord, y_coord, trajectory, ITER);
+            }
             // Color mapping
             if (result == 0)
                 attron(COLOR_PAIR(1));
@@ -46,7 +78,7 @@ void draw() {
                 attron(COLOR_PAIR(3));
             else if (result % 7 == 3)
                 attron(COLOR_PAIR(4));
-            else if (result % 7 == 4)
+                                    else if (result % 7 == 4)
                 attron(COLOR_PAIR(5));
             else if (result % 7 == 5)
                 attron(COLOR_PAIR(6));
@@ -96,6 +128,12 @@ int main(void) {
     {
         int ch = getch();
         switch (ch) {
+            case 'j':
+                use_julia = true;
+                break;
+            case 'b':
+                use_julia = false;
+                break;
             case 'w':
                 y_pos -= 0.15 * zoom;
                 break;
