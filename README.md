@@ -38,8 +38,14 @@ bash
 ```
 
 ## Project Showcase
+
+### Julia Fractal (Dedicated to all the Julia I know :xD)
 [Screencast from 22.04.2024 20:42:04.webm](https://github.com/mdabir1203/Julia-terminal/assets/66947064/4c404210-01f3-4db6-bacb-23da68c3c7d1)
 
+### Buddhabrot Fractal
+https://github.com/mdabir1203/CursedFractals/assets/66947064/66a98df4-2f88-49a9-97e9-999d8b3a590c
+
+### Fern Fractal
 
 
 ## Usage
@@ -60,7 +66,7 @@ Controls
 
 ## Contribution
 
-The project is inspired while working with @42Fractol project.  The codes were generated through Generative AI and thought process was human. If you would like to join feel free to contribute through a pull request. Make a DM for the pull request template
+The project is inspired while working with @42Fractol project.  The codes were generated through Generative AI(Copilot + llama3) and thought process was human. If you would like to join feel free to contribute through a pull request. Make a DM for the pull request template
 
 
 
