@@ -1,4 +1,5 @@
-## Fractal Visualizer with ncurses (WIP)
+## Fracta![Uploading aI_XfeAfS0qaZHEmZbuAxQ.png…]()
+l Visualizer with ncurses (WIP)
 
 This project demonstrates a terminal-based visualization of various fractals using the ncurses library in C++.
 
