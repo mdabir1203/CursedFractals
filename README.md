@@ -70,10 +70,6 @@ Controls
 
 The project is inspired while working with @42Fractol project.  The codes were generated through Generative AI(Copilot + llama3) and thought process was human. If you would like to join feel free to contribute through a pull request. Make a DM for the pull request template
 
-
-
-Contributing
-
 Contributions are welcome! If you have any suggestions, bug fixes, or improvements, please open an issue or submit a pull request.
 License
 
